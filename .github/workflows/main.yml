@@ -1,0 +1,27 @@
+name: Run Docker
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 1 * * *' # Run at 1:00 AM UTC, or 9:00 AM CST
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      EG_EMAIL: ${{ secrets.EG_EMAIL }}
+      EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Docker
+        uses: docker://ghcr.io/vogler/free-games-claimer
+        with:
+          args: >
+            --pull=always
+            -e EMAIL=${{ env.EG_EMAIL }}
+            -e PASSWORD=${{ env.EG_PASSWORD }}
+            -p 6080:6080
+            -v fgc:/fgc/data
