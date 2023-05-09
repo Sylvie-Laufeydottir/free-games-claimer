@@ -22,5 +22,3 @@ jobs:
           NOTIFY_TITLE: Auto-EpicGame
           EMAIL: ${{ env.EG_EMAIL }}
           PASSWORD: ${{ env.EG_PASSWORD }}
-        with:
-          args: -v fgc:/fgc/data
