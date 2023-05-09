@@ -18,6 +18,7 @@ jobs:
         uses: docker://ghcr.io/vogler/free-games-claimer
         with:
           args: >
+            -e SHOW=0
             -e NOTIFY=${{ env.NOTIFY }}
             -e NOTIFY_TITLE=Auto-EpicGame
             -e EMAIL=${{ env.EG_EMAIL }}
