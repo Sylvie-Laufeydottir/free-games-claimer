@@ -2,26 +2,22 @@ name: Free Games
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   schedule:
     - cron: '0 1 * * *' # Run at 1:00 AM UTC, or 9:00 AM CST
 
 jobs:
   free-games:
     runs-on: ubuntu-latest
-    env:
-      EG_EMAIL: ${{ secrets.EG_EMAIL }}
-      EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
-      NOTIFY: ${{ secrets.NOTIFY }}
-    steps:
-      - name: Run Docker
-        uses: docker://ghcr.io/vogler/free-games-claimer
-        env:
-          SHOW: 0
-          NOTIFY: ${{ env.NOTIFY }}
-          NOTIFY_TITLE: Auto-EpicGame
-          EMAIL: ${{ env.EG_EMAIL }}
-          PASSWORD: ${{ env.EG_PASSWORD }}
-        with:
-          args: >
-            -v ${GITHUB_WORKSPACE}/fgc:/fgc/data
+    container:
+      image: ghcr.io/vogler/free-games-claimer
+      env:
+        SHOW: 0
+        NOTIFY: ${{ env.NOTIFY }}
+        NOTIFY_TITLE: Auto-EpicGame
+        EMAIL: ${{ env.EG_EMAIL }}
+        PASSWORD: ${{ env.EG_PASSWORD }}
+      ports:
+        - 6080:6080
+      volumes:
+        - fgc:/fgc/data
