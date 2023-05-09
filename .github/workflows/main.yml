@@ -1,4 +1,4 @@
-name: Run Docker
+name: Free Games
 
 on:
   push:
@@ -22,3 +22,6 @@ jobs:
           NOTIFY_TITLE: Auto-EpicGame
           EMAIL: ${{ env.EG_EMAIL }}
           PASSWORD: ${{ env.EG_PASSWORD }}
+        with:
+          args: >
+            -v ${GITHUB_WORKSPACE}/fgc:/fgc/data
