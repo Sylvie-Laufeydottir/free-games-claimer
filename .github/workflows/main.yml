@@ -1,6 +1,9 @@
 name: Auto-EpicGame
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 1 * * *'
 
