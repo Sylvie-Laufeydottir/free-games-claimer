@@ -1,27 +1,26 @@
-name: Free Games
+name: Auto-EpicGame
 
 on:
-  push:
-    branches: [ main ]
   schedule:
-    - cron: '0 1 * * *' # Run at 1:00 AM UTC, or 9:00 AM CST
+    - cron: '0 1 * * *'
 
 jobs:
-  free-games:
+  run-container:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/vogler/free-games-claimer
-      env:
-        SHOW: 0
-        NOTIFY: ${{ env.NOTIFY }}
-        NOTIFY_TITLE: Auto-EpicGame
-        EMAIL: ${{ env.EG_EMAIL }}
-        PASSWORD: ${{ env.EG_PASSWORD }}
-      ports:
-        - 6080:6080
-      volumes:
-        - fgc:/fgc/data
     steps:
-      - name: Run Docker
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run Docker container
+        env:
+          SHOW: 0
+          NOTIFY: ${{ env.NOTIFY }}
+          NOTIFY_TITLE: Auto-EpicGame
+          EMAIL: ${{ env.EG_EMAIL }}
+          PASSWORD: ${{ env.EG_PASSWORD }}
         run: |
-          bash -c "node epic-games.js"
+          docker run -e SHOW=$SHOW \
+                     -e NOTIFY=$NOTIFY \
+                     -e NOTIFY_TITLE=$NOTIFY_TITLE \
+                     -e EMAIL=$EMAIL \
+                     -e PASSWORD=$PASSWORD \
+                     ghcr.io/vogler/free-games-claimer
