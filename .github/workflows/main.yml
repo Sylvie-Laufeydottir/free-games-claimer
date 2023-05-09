@@ -12,16 +12,15 @@ jobs:
     env:
       EG_EMAIL: ${{ secrets.EG_EMAIL }}
       EG_PASSWORD: ${{ secrets.EG_PASSWORD }}
+      NOTIFY: ${{ secrets.NOTIFY }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Run Docker
         uses: docker://ghcr.io/vogler/free-games-claimer
         with:
           args: >
             --pull=always
+            -e NOTIFY=${{ env.NOTIFY }}
+            -e NOTIFY_TITLE=Auto-EpicGame
             -e EMAIL=${{ env.EG_EMAIL }}
             -e PASSWORD=${{ env.EG_PASSWORD }}
-            -p 6080:6080
             -v fgc:/fgc/data
