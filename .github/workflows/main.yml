@@ -21,3 +21,7 @@ jobs:
         - 6080:6080
       volumes:
         - fgc:/fgc/data
+    steps:
+      - name: Run Docker
+        run: |
+          # do something here after container is started
