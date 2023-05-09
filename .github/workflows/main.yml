@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: Run Docker
         uses: docker://ghcr.io/vogler/free-games-claimer
+        env:
+          SHOW: 0
+          NOTIFY: ${{ env.NOTIFY }}
+          NOTIFY_TITLE: Auto-EpicGame
+          EMAIL: ${{ env.EG_EMAIL }}
+          PASSWORD: ${{ env.EG_PASSWORD }}
         with:
-          args: >
-            -e SHOW=0
-            -e NOTIFY=${{ env.NOTIFY }}
-            -e NOTIFY_TITLE=Auto-EpicGame
-            -e EMAIL=${{ env.EG_EMAIL }}
-            -e PASSWORD=${{ env.EG_PASSWORD }}
-            -v fgc:/fgc/data
+          args: -v fgc:/fgc/data
