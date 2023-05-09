@@ -21,9 +21,9 @@ jobs:
           EMAIL: ${{ secrets.EG_EMAIL }}
           PASSWORD: ${{ secrets.EG_PASSWORD }}
         run: |
-          docker run -e SHOW=$SHOW \
-                     -e NOTIFY=$NOTIFY \
-                     -e NOTIFY_TITLE=$NOTIFY_TITLE \
-                     -e EMAIL=$EMAIL \
-                     -e PASSWORD=$PASSWORD \
-                     ghcr.io/vogler/free-games-claimer
+          docker run --entrypoint "node" -e SHOW=$SHOW \
+                                        -e NOTIFY=$NOTIFY \
+                                        -e NOTIFY_TITLE=$NOTIFY_TITLE \
+                                        -e EMAIL=$EMAIL \
+                                        -e PASSWORD=$PASSWORD \
+                                        ghcr.io/vogler/free-games-claimer epic-games
