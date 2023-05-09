@@ -16,10 +16,10 @@ jobs:
       - name: Run Docker container
         env:
           SHOW: 0
-          NOTIFY: ${{ env.NOTIFY }}
+          NOTIFY: ${{ secrets.NOTIFY }}
           NOTIFY_TITLE: Auto-EpicGame
-          EMAIL: ${{ env.EG_EMAIL }}
-          PASSWORD: ${{ env.EG_PASSWORD }}
+          EMAIL: ${{ secrets.EG_EMAIL }}
+          PASSWORD: ${{ secrets.EG_PASSWORD }}
         run: |
           docker run -e SHOW=$SHOW \
                      -e NOTIFY=$NOTIFY \
